@@ -1,7 +1,7 @@
 #include "raylib.h"
 #include "game.h"
-#include "entity.h" // > fsm.h
-#include "render.h" // > entity.h
+#include "entity.h"
+#include "render.h"
 
 int main(void) {
   Environment environment = Environment_CreateDefault();

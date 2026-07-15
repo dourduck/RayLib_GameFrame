@@ -1,4 +1,3 @@
-#include "entity.h"
 #include "render.h"
 
 void EntitySystemImpl_Render(World *_world, i32 _entity_id) {

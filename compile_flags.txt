@@ -19,7 +19,3 @@
 -Wall
 -Wextra
 -Werror
--include ./include/raylib.h
--include ./include/raymath.h
--include ./src/raygui.h
--include ./src/base.h
