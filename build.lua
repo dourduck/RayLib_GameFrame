@@ -27,6 +27,7 @@ os.execute("echo '[***LINKING***]'")
 os.execute(
 	"gcc -o game main.o game.o fsm.o entity.o render.o -I./include/ -L./lib/ -lraylib -Wl,-rpath,$(pwd)/lib/ -lm -lpthread -ldl -lrt -lX11")
 
+os.execute("mkdir -p ./build/")
 os.execute("mv *.o ./build/")
 
 
