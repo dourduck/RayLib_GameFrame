@@ -16,7 +16,7 @@ i32 World_Entity_Create(World *world, i32 traits) {
 void EntitySystemUpdate(World *world, EntitySystem *entitySystem) {
   i32 trait_mask = entitySystem->traits_filter;
   EntitySystemUpdate_Internal(world, trait_mask,
-                               entitySystem->implementation);
+                               entitySystem->impl);
 }
 
 void EntitySystemUpdate_Internal(World *world, i32 trait_mask,
@@ -27,6 +27,13 @@ void EntitySystemUpdate_Internal(World *world, i32 trait_mask,
       impl(world, entity.id);
     }
   }
+}
+
+EntitySystem EntitySystemCreate(i32 trait_mask, EntitySystemImpl impl) {
+  return (EntitySystem){
+      .traits_filter = trait_mask,
+      .impl = impl,
+  };
 }
 
 /* vim:set ts=3 sw=2 sts=2 et: */

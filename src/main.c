@@ -23,13 +23,16 @@ int main(void) {
 
   EventQueue event_queue = {0};
 
-  i32 player_id = World_Entity_Create(&world, archetype_table[ARCHETYPE_PLAYER]);
+  i32 player_id =
+      World_Entity_Create(&world, archetype_table[ARCHETYPE_PLAYER]);
   world.entities[player_id].position = (Vector2){500, 500};
   world.entities[player_id].speed = 100.0f;
   world.entities[player_id].color = SKYBLUE;
 
-  EntitySystem es_render = EntitySystemCreate_Render(&world);
-  EntitySystem es_physics = EntitySystemCreate_Physics(&world);
+  EntitySystem es_render =
+      EntitySystemCreate((TRAIT_RENDERABLE), EntitySystemImpl_Render);
+  EntitySystem es_physics =
+      EntitySystemCreate((TRAIT_PHYSICAL), EntitySystemImpl_Physics);
 
   while (!WindowShouldClose()) {
     float delta_time = GetFrameTime();
@@ -38,12 +41,12 @@ int main(void) {
 
     EventQueue_Process(&event_queue);
 
-    EntitySystemUpdate_Physics(&world, &es_physics);
+    EntitySystemUpdate(&world, &es_physics);
 
     BeginDrawing();
     ClearBackground(GRAY);
 
-    EntitySystemUpdate_Render(&world, &es_render);
+    EntitySystemUpdate(&world, &es_render);
 
     EndDrawing();
   }

@@ -60,7 +60,7 @@ typedef void (*EntitySystemImpl)(World *_world, i32 _entity_id);
 
 typedef struct {
   i32 traits_filter;
-  EntitySystemImpl implementation;
+  EntitySystemImpl impl;
 } EntitySystem;
 
 void World_Init(World *_world);
@@ -69,6 +69,8 @@ i32 World_Entity_Create(World *world, i32 traits);
 void EntitySystemUpdate(World *world, EntitySystem *entitySystem);
 void EntitySystemUpdate_Internal(World *world, i32 traitMask,
                                  EntitySystemImpl impl);
+
+EntitySystem EntitySystemCreate(i32 trait_mask, EntitySystemImpl impl);
 
 #endif
 

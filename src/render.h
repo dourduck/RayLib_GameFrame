@@ -2,7 +2,6 @@
 #define RENDER_H
 #include "entity.h"
 
-EntitySystem EntitySystemCreate_Render(World* world);
-void EntitySystemUpdate_Render(World *world, EntitySystem *es_render);
+void EntitySystemImpl_Render(World *world, i32 entity_id);
 
 #endif
