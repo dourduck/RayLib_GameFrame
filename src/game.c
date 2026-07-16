@@ -8,7 +8,7 @@ Environment Environment_CreateDefault() {
       .title = "Game",
       .target_fps = 60,
       .exit_key = KEY_Q,
-      .flags = FLAG_FULLSCREEN_MODE,
+      .flags = 0,
   };
 }
 

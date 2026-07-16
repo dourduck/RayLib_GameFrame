@@ -16,6 +16,9 @@ os.execute("gcc ./src/fsm.c -c -I./include/ -L./lib/ -lraylib -Wl,-rpath,$(pwd)/
 os.execute("echo '[***BULIDING RENDER LIB***]'")
 os.execute("gcc ./src/render.c -c -I./include/ -L./lib/ -lraylib -Wl,-rpath,$(pwd)/lib/ -lm -lpthread -ldl -lrt -lX11")
 
+os.execute("echo '[***BULIDING EVENT LIB***]'")
+os.execute("gcc ./src/event.c -c -I./include/ -L./lib/ -lraylib -Wl,-rpath,$(pwd)/lib/ -lm -lpthread -ldl -lrt -lX11")
+
 -- main
 os.execute("echo '[***BUILDING MAIN***]'")
 os.execute("gcc -c ./src/main.c -I./include/ -L./lib/ -lraylib -Wl,-rpath,$(pwd)/lib/ -lm -lpthread -ldl -lrt -lX11")
@@ -25,7 +28,7 @@ os.execute("gcc -c ./src/main.c -I./include/ -L./lib/ -lraylib -Wl,-rpath,$(pwd)
 -- linking
 os.execute("echo '[***LINKING***]'")
 os.execute(
-	"gcc -o game main.o game.o fsm.o entity.o render.o -I./include/ -L./lib/ -lraylib -Wl,-rpath,$(pwd)/lib/ -lm -lpthread -ldl -lrt -lX11")
+	"gcc -o game main.o game.o event.o fsm.o entity.o render.o -I./include/ -L./lib/ -lraylib -Wl,-rpath,$(pwd)/lib/ -lm -lpthread -ldl -lrt -lX11")
 
 os.execute("mkdir -p ./build/")
 os.execute("mv *.o ./build/")

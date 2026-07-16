@@ -1,6 +1,7 @@
-#include "raylib.h"
-#include "game.h"
 #include "entity.h"
+#include "event.h"
+#include "game.h"
+#include "raylib.h"
 #include "render.h"
 
 int main(void) {
@@ -19,8 +20,22 @@ int main(void) {
 
   EntitySystem es_render = EntitySystem_Render_Create(&world);
 
+  EventQueue event_queue = {0};
+
   while (!WindowShouldClose()) {
     float delta_time = GetFrameTime();
+
+    int key = GetKeyPressed();
+
+    if (key) {
+      EventKeyPressed event_key_pressed = {.key = key};
+      Event e = {.kind = EVENT_KEY_PRESSED,
+                 .data.key_pressed = event_key_pressed};
+
+      EventQueue_Push(&event_queue, e);
+    }
+
+    EventQueue_Process(&event_queue);
 
     // Poll_Input();
     // Poll_Game(&game, delta_time);
