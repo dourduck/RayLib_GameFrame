@@ -3,8 +3,8 @@
 #include "base.h"
 #include "entity.h"
 
-void EntitySystemImpl_Physics(World *_world, i32 _entity_id);
-EntitySystem EntitySystem_Physics_Create(World *_world);
-void Update_Physics(EntitySystem *_es_physics);
+void EntitySystemImpl_Physics(World *world, i32 entity_id);
+EntitySystem EntitySystemCreate_Physics();
+void EntitySystemUpdate_Physics(World *world, EntitySystem *es_physics);
 
 #endif

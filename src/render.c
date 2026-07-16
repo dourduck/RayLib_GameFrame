@@ -1,22 +1,20 @@
 #include "render.h"
+#include "entity.h"
 
-void EntitySystemImpl_Render(World *_world, i32 _entity_id) {
-  Vector2 pos = _world->entities[_entity_id].position;
-  DrawCircleV(pos, 16, _world->entities[_entity_id].color);
+void EntitySystemImpl_Render(World *world, i32 entity_id) {
+  Vector2 pos = world->entities[entity_id].position;
+  DrawCircleV(pos, 16, world->entities[entity_id].color);
 }
 
-EntitySystem EntitySystem_Render_Create(World* _world) {
-  i32 _traits_filter = TRAIT_RENDERABLE;
+EntitySystem EntitySystemCreate_Render(World *world) {
+  i32 traits_filter = TRAIT_RENDERABLE;
 
-  EntitySystem _es_render = {.world = _world,
-                             .traits_filter = _traits_filter,
-                             .implementation = EntitySystemImpl_Render};
-
-  return _es_render;
+  return (EntitySystem){.traits_filter = traits_filter,
+                        .implementation = EntitySystemImpl_Render};
 }
 
-void Update_Render(EntitySystem *_es_render){
-  EntitySystem_Invoke(_es_render);
+void EntitySystemUpdate_Render(World *world, EntitySystem *es_render) {
+  EntitySystemUpdate(world, es_render);
 }
 
 /* vim:set ts=3 sw=2 sts=2 et: */

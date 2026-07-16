@@ -2,10 +2,9 @@
 #include "event.h"
 #include "game.h"
 #include "input.h"
+#include "physics.h"
 #include "raylib.h"
 #include "render.h"
-#include "physics.h"
-
 
 int main(void) {
   Environment environment = Environment_CreateDefault();
@@ -22,7 +21,6 @@ int main(void) {
     world.entities[id].color = GREEN;
   }
 
-  EntitySystem es_render = EntitySystem_Render_Create(&world);
   EventQueue event_queue = {0};
 
   i32 player_id = World_Entity_Create(&world, archetype_table[ARCHETYPE_PLAYER]);
@@ -30,7 +28,8 @@ int main(void) {
   world.entities[player_id].speed = 100.0f;
   world.entities[player_id].color = SKYBLUE;
 
-  EntitySystem es_physics = EntitySystem_Physics_Create(&world);
+  EntitySystem es_render = EntitySystemCreate_Render(&world);
+  EntitySystem es_physics = EntitySystemCreate_Physics(&world);
 
   while (!WindowShouldClose()) {
     float delta_time = GetFrameTime();
@@ -39,12 +38,12 @@ int main(void) {
 
     EventQueue_Process(&event_queue);
 
-    Update_Physics(&es_physics);
+    EntitySystemUpdate_Physics(&world, &es_physics);
 
     BeginDrawing();
     ClearBackground(GRAY);
 
-    Update_Render(&es_render);
+    EntitySystemUpdate_Render(&world, &es_render);
 
     EndDrawing();
   }

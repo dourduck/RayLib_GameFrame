@@ -1,8 +1,8 @@
 #ifndef ENTITY_H
 #define ENTITY_H
-#include  "raylib.h"
 #include "base.h"
 #include "fsm.h"
+#include "raylib.h"
 
 typedef enum {
   TRAIT_PLAYER = (1 << 0),
@@ -59,7 +59,6 @@ typedef struct {
 typedef void (*EntitySystemImpl)(World *_world, i32 _entity_id);
 
 typedef struct {
-  World *world;
   i32 traits_filter;
   EntitySystemImpl implementation;
 } EntitySystem;
@@ -67,9 +66,9 @@ typedef struct {
 void World_Init(World *_world);
 i32 World_Entity_Create(World *world, i32 traits);
 
-void EntitySystem_Invoke(EntitySystem *_entitySystem);
-void EntitySystem_Invoke_Internal(World *_world, i32 _traitMask,
-                                  EntitySystemImpl impl);
+void EntitySystemUpdate(World *world, EntitySystem *entitySystem);
+void EntitySystemUpdate_Internal(World *world, i32 traitMask,
+                                 EntitySystemImpl impl);
 
 #endif
 

@@ -13,19 +13,18 @@ i32 World_Entity_Create(World *world, i32 traits) {
   return entity_id;
 }
 
-void EntitySystem_Invoke(EntitySystem *_entitySystem) {
-  World *_world = _entitySystem->world;
-  i32 _trait_mask = _entitySystem->traits_filter;
-  EntitySystem_Invoke_Internal(_world, _trait_mask,
-                               _entitySystem->implementation);
+void EntitySystemUpdate(World *world, EntitySystem *entitySystem) {
+  i32 trait_mask = entitySystem->traits_filter;
+  EntitySystemUpdate_Internal(world, trait_mask,
+                               entitySystem->implementation);
 }
 
-void EntitySystem_Invoke_Internal(World *_world, i32 _trait_mask,
+void EntitySystemUpdate_Internal(World *world, i32 trait_mask,
                                   EntitySystemImpl impl) {
-  for (i32 i = 0; i < _world->count; i++) {
-    Entity _entity = _world->entities[i];
-    if ((_entity.traits & _trait_mask) == _trait_mask) {
-      impl(_world, _entity.id);
+  for (i32 i = 0; i < world->count; i++) {
+    Entity entity = world->entities[i];
+    if ((entity.traits & trait_mask) == trait_mask) {
+      impl(world, entity.id);
     }
   }
 }
