@@ -4,6 +4,8 @@
 #include "input.h"
 #include "raylib.h"
 #include "render.h"
+#include "physics.h"
+
 
 int main(void) {
   Environment environment = Environment_CreateDefault();
@@ -17,19 +19,27 @@ int main(void) {
     float x = GetRandomValue(100, 400);
     float y = GetRandomValue(100, 400);
     world.entities[id].position = (Vector2){x, y};
+    world.entities[id].color = GREEN;
   }
 
   EntitySystem es_render = EntitySystem_Render_Create(&world);
   EventQueue event_queue = {0};
 
+  i32 player_id = World_Entity_Create(&world, archetype_table[ARCHETYPE_PLAYER]);
+  world.entities[player_id].position = (Vector2){500, 500};
+  world.entities[player_id].speed = 100.0f;
+  world.entities[player_id].color = SKYBLUE;
+
+  EntitySystem es_physics = EntitySystem_Physics_Create(&world);
+
   while (!WindowShouldClose()) {
     float delta_time = GetFrameTime();
 
-    Pull_Input(&event_queue);
+    Pull_Input(&world, &event_queue, delta_time);
 
     EventQueue_Process(&event_queue);
 
-    // Poll_Game(&game, delta_time);
+    Update_Physics(&es_physics);
 
     BeginDrawing();
     ClearBackground(GRAY);

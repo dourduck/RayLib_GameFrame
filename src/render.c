@@ -2,7 +2,7 @@
 
 void EntitySystemImpl_Render(World *_world, i32 _entity_id) {
   Vector2 pos = _world->entities[_entity_id].position;
-  DrawCircleV(pos, 8, GREEN);
+  DrawCircleV(pos, 16, _world->entities[_entity_id].color);
 }
 
 EntitySystem EntitySystem_Render_Create(World* _world) {

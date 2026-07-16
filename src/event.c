@@ -1,5 +1,8 @@
 #include "event.h"
-#include <stdio.h>
+#include "entity.h"
+#include "raylib.h"
+#include "raymath.h"
+// #include <stdio.h>
 
 /* vvv [ CONTEXT DEPENDANT ] vvv */
 
@@ -12,17 +15,39 @@
 // }
 
 void Event_Handle_Input_Impl(EventInput e) {
-  if (e.key_pressed_north) {
-    printf("North Key Pressed!\n");
-  }
-  if (e.key_pressed_east) {
-    printf("East Key Pressed!\n");
-  }
-  if (e.key_pressed_south) {
-    printf("South Key Pressed!\n");
-  }
-  if (e.key_pressed_west) {
-    printf("West Key Pressed!\n");
+  for (i32 i = 0; i < e.world->count; i++) {
+    Entity _entity = e.world->entities[i];
+    i32 _trait_mask = archetype_table[ARCHETYPE_PLAYER];
+
+    if ((_entity.traits & _trait_mask) == _trait_mask) {
+      f32 speed = _entity.speed * e.delta_time;
+
+      Vector2 vel = Vector2Zero();
+
+      if (e.key_down_north) {
+        vel.y -= 1.0f;
+        // printf("North Key Pressed!\n");
+      }
+      if (e.key_down_east) {
+        vel.x += 1.0f;
+        // printf("East Key Pressed!\n");
+      }
+      if (e.key_down_south) {
+        vel.y += 1.0f;
+        // printf("South Key Pressed!\n");
+      }
+      if (e.key_down_west) {
+        vel.x -= 1.0f;
+        // printf("West Key Pressed!\n");
+      }
+      vel = Vector2Normalize(vel);
+
+      vel.x *= speed;
+      vel.y *= speed;
+
+      e.world->entities[i].velocity.x = vel.x;
+      e.world->entities[i].velocity.y = vel.y;
+    }
   }
 }
 

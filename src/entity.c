@@ -20,7 +20,6 @@ void EntitySystem_Invoke(EntitySystem *_entitySystem) {
                                _entitySystem->implementation);
 }
 
-// typedef void (*EntitySystemImpl)(World *_world, i32 _entity_id);
 void EntitySystem_Invoke_Internal(World *_world, i32 _trait_mask,
                                   EntitySystemImpl impl) {
   for (i32 i = 0; i < _world->count; i++) {

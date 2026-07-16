@@ -2,7 +2,7 @@
 #include "event.h"
 #include "raylib.h"
 
-void Pull_Input(EventQueue *q) {
+void Pull_Input(World *world, EventQueue *q, f32 delta_time) {
   KeyboardKey north, east, south, west;
 
   north = KEY_W;
@@ -17,6 +17,8 @@ void Pull_Input(EventQueue *q) {
   Vector2 mouse_pos = GetMousePosition();
 
   EventInput event_input = {
+      .world = world,
+      .delta_time = delta_time,
       .key_pressed_north = IsKeyPressed(north),
       .key_pressed_east = IsKeyPressed(east),
       .key_pressed_south = IsKeyPressed(south),

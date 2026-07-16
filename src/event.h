@@ -1,10 +1,14 @@
 #ifndef EVENT_H
 #define EVENT_H
+#include "entity.h"
 #include "raylib.h"
 
 /* vvv [ CONTEXT DEPENDANT ] vvv */
 
 typedef struct {
+  World *world;
+  f32 delta_time;
+
   bool key_pressed_north;
   bool key_pressed_east;
   bool key_pressed_south;
@@ -15,11 +19,6 @@ typedef struct {
   bool key_down_south;
   bool key_down_west;
 
-  // int key_pressed;
-  // int key_down;
-  // int mouse_pressed;
-  // int mouse_down;
-  
   Vector2 mouse_position;
   bool mouse_pressed_left;
   bool mouse_pressed_right;

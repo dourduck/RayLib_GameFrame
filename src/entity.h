@@ -5,14 +5,16 @@
 #include "fsm.h"
 
 typedef enum {
-  TRAIT_PHYSICAL = (1 << 0),
-  TRAIT_RENDERABLE = (1 << 1),
-  TRAIT_MOVABLE = (1 << 2),
-  TRAIT_WET = (1 << 3),
-  TRAIT_FLYING = (1 << 4),
+  TRAIT_PLAYER = (1 << 0),
+  TRAIT_PHYSICAL = (1 << 1),
+  TRAIT_RENDERABLE = (1 << 2),
+  TRAIT_MOVABLE = (1 << 3),
+  TRAIT_WET = (1 << 4),
+  TRAIT_FLYING = (1 << 5),
 } Trait;
 
 typedef enum {
+  ARCHETYPE_PLAYER,
   ARCHETYPE_SLIME,
   ARCHETYPE_GOBLIN,
   ARCHETYPE_DRAGON,
@@ -20,12 +22,14 @@ typedef enum {
 } Archetype;
 
 static const i32 archetype_table[ARCHETYPE_COUNT] = {
+    /* Player */
+    TRAIT_PLAYER | TRAIT_RENDERABLE | TRAIT_PHYSICAL,
     /* Slime */
-    TRAIT_PHYSICAL | TRAIT_RENDERABLE | TRAIT_WET,
+    TRAIT_RENDERABLE | TRAIT_WET,
     /* Goblin */
-    TRAIT_PHYSICAL | TRAIT_RENDERABLE,
+    TRAIT_RENDERABLE,
     /* Dragon */
-    TRAIT_PHYSICAL | TRAIT_RENDERABLE | TRAIT_FLYING,
+    TRAIT_RENDERABLE | TRAIT_FLYING,
 };
 
 /* Entities should be heap allocated */
@@ -42,6 +46,7 @@ typedef struct {
   i32 health;
   i32 hunger;
   i32 id;
+  Color color;
 } Entity;
 
 typedef struct {
