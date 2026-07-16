@@ -2,6 +2,12 @@
 #define INPUT_H
 
 #include "event.h"
+// typedef struct {
+//   int key_pressed;
+//   int key_down;
+//   int mouse_pressed;
+//   int mouse_down;
+// } EventInput;
 void Pull_Input(EventQueue *q);
 
 #endif

@@ -1,18 +1,38 @@
 #ifndef EVENT_H
 #define EVENT_H
+#include "raylib.h"
 
 /* vvv [ CONTEXT DEPENDANT ] vvv */
 
 typedef struct {
-  int key;
-} EventKeyPressed;
+  bool key_pressed_north;
+  bool key_pressed_east;
+  bool key_pressed_south;
+  bool key_pressed_west;
+
+  bool key_down_north;
+  bool key_down_east;
+  bool key_down_south;
+  bool key_down_west;
+
+  // int key_pressed;
+  // int key_down;
+  // int mouse_pressed;
+  // int mouse_down;
+  
+  Vector2 mouse_position;
+  bool mouse_pressed_left;
+  bool mouse_pressed_right;
+  bool mouse_down_left;
+  bool mouse_down_right;
+} EventInput;
 
 typedef union {
-  EventKeyPressed key_pressed;
+  EventInput event_input;
 } EventData;
 
 typedef enum {
-  EVENT_KEY_PRESSED,
+  EVENT_INPUT,
   EVENT_COUNT,
 } EventKind;
 
@@ -25,8 +45,8 @@ typedef void (*EventHandle)(Event *e);
 
 /* vvv [ EVENT HANDLES ] vvv */
 
-void Event_Handle_KeyPressed_impl(EventKeyPressed e);
-void Event_Handle_KeyPressed(Event *e);
+void Event_Handle_Input_Impl(EventInput e);
+void Event_Handle_Input(Event *e);
 
 /* ^^^ [ EVENT HANDLES ] ^^^ */
 /* vvv [ EVENT TABLE ] vvv */
@@ -35,7 +55,7 @@ void Event_Handle_KeyPressed(Event *e);
  * EventKind(s)
  */
 static const EventHandle event_table[EVENT_COUNT] = {
-    Event_Handle_KeyPressed,
+    Event_Handle_Input,
 };
 /* ^^^ [ EVENT TABLE ] ^^^ */
 

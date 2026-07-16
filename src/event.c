@@ -11,12 +11,23 @@
 //   Event_Handle_PlaceHolder_Impl(e->data.place_holder);
 // }
 
-void Event_Handle_KeyPressed_impl(EventKeyPressed e) {
-  printf("key pressed %d\n", e.key);
+void Event_Handle_Input_Impl(EventInput e) {
+  if (e.key_pressed_north) {
+    printf("North Key Pressed!\n");
+  }
+  if (e.key_pressed_east) {
+    printf("East Key Pressed!\n");
+  }
+  if (e.key_pressed_south) {
+    printf("South Key Pressed!\n");
+  }
+  if (e.key_pressed_west) {
+    printf("West Key Pressed!\n");
+  }
 }
 
-void Event_Handle_KeyPressed(Event *e) {
-  Event_Handle_KeyPressed_impl(e->data.key_pressed);
+void Event_Handle_Input(Event *e) {
+  Event_Handle_Input_Impl(e->data.event_input);
 }
 
 /* ^^^ [ EVENT HANDLES ] ^^^ */
